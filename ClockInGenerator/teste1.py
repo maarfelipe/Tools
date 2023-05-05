@@ -26,4 +26,21 @@ while current_date.date() != today.date():
     if current_date.weekday() < 5:  # If the current date is a weekday
         working_days += 1
 
-print(f"The difference in working days is {working_days} days")
+# Create times for the working days
+times = {}
+current_date = most_recent_date
+while working_days > 0:
+    current_date += datetime.timedelta(days=1)
+    if current_date.weekday() < 5:  # If the current date is a weekday
+        working_days -= 1
+        date_str = current_date.strftime("%m/%d")
+        times[date_str] = {
+            "input01": "09:01",
+            "exit01": "12:03",
+            "input02": "13:21",
+            "exit02": "18:19",
+        }
+
+# Save the times to a new JSON file
+with open("times.json", "w") as file:
+    json.dump(times, file, indent=4)
