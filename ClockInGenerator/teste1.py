@@ -40,6 +40,9 @@ while working_days > 0:
             'exit02': '18:19',
         }
 
+# sort the dates in descending order
+data = {k: v for k, v in sorted(data.items(), reverse=True)}
+
 # Write updated data back to file
 with open('clockIn.json', 'w') as file:
     json.dump(data, file, indent=4)
