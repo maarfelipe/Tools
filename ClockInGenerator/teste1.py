@@ -3,7 +3,7 @@ import json
 from dateutil import parser
 
 # Load data from the clockIn.json file
-with open("clockIn.json", "r") as file:
+with open('clockIn.json', 'r') as file:
     data = json.load(file)
 
 # Get the keys (dates) from the data dictionary and parse them as datetime objects
@@ -27,20 +27,19 @@ while current_date.date() != today.date():
         working_days += 1
 
 # Create times for the working days
-times = {}
 current_date = most_recent_date
 while working_days > 0:
     current_date += datetime.timedelta(days=1)
     if current_date.weekday() < 5:  # If the current date is a weekday
         working_days -= 1
-        date_str = current_date.strftime("%m/%d")
-        times[date_str] = {
-            "input01": "09:01",
-            "exit01": "12:03",
-            "input02": "13:21",
-            "exit02": "18:19",
+        date_str = current_date.strftime('%m/%d')
+        data[date_str] = {
+            'input01': '09:01',
+            'exit01': '12:03',
+            'input02': '13:21',
+            'exit02': '18:19',
         }
 
-# Save the times to a new JSON file
-with open("times.json", "w") as file:
-    json.dump(times, file, indent=4)
+# Write updated data back to file
+with open('clockIn.json', 'w') as file:
+    json.dump(data, file, indent=4)
