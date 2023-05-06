@@ -1,10 +1,13 @@
 import datetime
-import json
 from dateutil import parser
+from shift_generator import Workday
+from file_handler import JSONFileHandler
 
-# Load data from the clockIn.json file
-with open('clockIn.json', 'r') as file:
-    data = json.load(file)
+# Create an instance of JSONFileHandler with the file path
+file_handler = JSONFileHandler('clockIn.json')
+
+# Load data from the JSON file
+data = file_handler.load_data()
 
 # Get the keys (dates) from the data dictionary and parse them as datetime objects
 dates = [parser.parse(date) for date in data.keys()]
@@ -31,18 +34,19 @@ current_date = most_recent_date
 while working_days > 0:
     current_date += datetime.timedelta(days=1)
     if current_date.weekday() < 5:  # If the current date is a weekday
+        workday = Workday()
+        workday.generate_shifts()
         working_days -= 1
         date_str = current_date.strftime('%m/%d')
         data[date_str] = {
-            'input01': '09:01',
-            'exit01': '12:03',
-            'input02': '13:21',
-            'exit02': '18:19',
+            'input01': workday.shift1.start_time.strftime('%H:%M'),
+            'exit01': workday.shift1.end_time.strftime('%H:%M'),
+            'input02': workday.shift2.start_time.strftime('%H:%M'),
+            'exit02': workday.shift2.end_time.strftime('%H:%M'),
         }
 
-# sort the dates in descending order
+# Sort the dates in descending order
 data = {k: v for k, v in sorted(data.items(), reverse=True)}
 
 # Write updated data back to file
-with open('clockIn.json', 'w') as file:
-    json.dump(data, file, indent=4)
+file_handler.write_data(data)

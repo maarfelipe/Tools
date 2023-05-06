@@ -5,7 +5,6 @@ class Shift:
     def __init__(self, start_time, end_time):
         self.start_time = start_time
         self.end_time = end_time
-        self.duration = (end_time - start_time).total_seconds() / 60
         
 class Workday:
     def __init__(self):
@@ -22,9 +21,9 @@ class Workday:
         self.shift2 = Shift(start_time2, end_time2)
             
 if __name__ == '__main__':
-      workday = Workday()
-      workday.generate_shifts()
-# print(workday.shift1.start_time.strftime("%H:%M"))
-# print(workday.shift1.end_time.strftime("%H:%M"))
-# print(workday.shift2.start_time.strftime("%H:%M"))
-# print(workday.shift2.end_time.strftime("%H:%M"))
+    workday = Workday()
+    workday.generate_shifts()
+    # print(workday.shift1.start_time.strftime("%H:%M"))
+    # print(workday.shift1.end_time.strftime("%H:%M"))
+    # print(workday.shift2.start_time.strftime("%H:%M"))
+    # print(workday.shift2.end_time.strftime("%H:%M"))
