@@ -4,7 +4,7 @@ from shift_generator import Workday
 from file_handler import JSONFileHandler
 
 # Create an instance of JSONFileHandler with the file path
-file_handler = JSONFileHandler('clockIn.json')
+file_handler = JSONFileHandler('employee_work_hours.json')
 
 # Load data from the JSON file
 data = file_handler.load_data()
