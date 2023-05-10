@@ -1,4 +1,5 @@
 import json
+from collections import OrderedDict
 
 class JSONFileHandler:
     def __init__(self, file_path):
@@ -16,12 +17,14 @@ class JSONFileHandler:
         # Add new data to existing data
         existing_data.update(data)
 
-        # Remove oldest entries if there are more than 30 days
-        if len(existing_data) > 30:
-            sorted_dates = sorted(existing_data.keys())
-            oldest_dates = sorted_dates[:len(existing_data) - 30]
-            existing_data = {date: existing_data[date] for date in existing_data if date not in oldest_dates}
+        # Sort the data by date in descending order
+        sorted_data = OrderedDict(
+            sorted(existing_data.items(), key=lambda x: x[0], reverse=True)
+        )
 
-        # Write updated data to the file
+        # Keep only the latest 30 days
+        latest_data = dict(list(sorted_data.items())[:30])
+
+        # Write the latest data to the file
         with open(self.file_path, 'w') as file:
-            json.dump(existing_data, file, indent=4)
+            json.dump(latest_data, file, indent=4)
