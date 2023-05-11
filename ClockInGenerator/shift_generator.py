@@ -1,6 +1,7 @@
 import random
 from datetime import datetime, timedelta
 
+
 class Shift:
     def __init__(self, start_time: datetime, end_time: datetime):
         """
