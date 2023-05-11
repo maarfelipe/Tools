@@ -71,3 +71,8 @@ class JSONDataProcessor:
 
         # Write the latest data to the file
         self.file_manager.write_data(latest_data)
+
+
+if __name__ == '__main__':
+    file_manager = JSONFileManager('file_path')
+    data_processor = JSONDataProcessor(file_manager)
