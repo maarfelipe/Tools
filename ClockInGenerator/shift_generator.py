@@ -26,8 +26,8 @@ class Workday:
         """
         Generate random shifts for the workday.
         """
-        # Generate random start and end times for shift1 within the range of 8:01 AM to 12:15 PM
-        start_time1 = datetime.now().replace(hour=8, minute=1) + timedelta(minutes=random.randint(0, 39))
+        # Generate random start and end times for shift1 within the range of 9:01 AM to 12:15 PM
+        start_time1 = datetime.now().replace(hour=9, minute=1) + timedelta(minutes=random.randint(0, 14))
         end_time1 = datetime.now().replace(hour=12, minute=1) + timedelta(minutes=random.randint(0, 14))
 
         # Calculate start time and end time for shift2 based on shift1
